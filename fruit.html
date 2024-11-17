@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruit Information App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #f44336;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            border: 2px solid #f44336;
+            background-color: #2c2c2c;
+            color: #f4f4f4;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 30px;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .info {
+            background-color: #2c2c2c;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .fruit-image img {
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .fruit-image img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            .info-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="fruit-name">Enter a Fruit Name</h1>
+        <input type="text" id="fruit-input" placeholder="Enter the fruit name">
+        <button onclick="showFruitInfo()">Show Info</button>
+        <div id="fruit-info" class="info-container"></div>
+    </div>
+
+    <script>
+        const fruits = {
+            "apple": {
+                name: "Apple",
+                scientificName: "Malus domestica",
+                origin: "Central Asia",
+                season: "Fall",
+                taste: "Sweet to tart",
+                nutrition: "Calories: 95, Carbs: 25g, Fiber: 4g, Vitamin C: 14% of daily value",
+                uses: "Eaten raw, in pies, juices, and salads",
+                image: "apple.jpeg"
+            },
+            // Add other fruits here...
+        };
+
+        function showFruitInfo() {
+            const fruitInput = document.getElementById('fruit-input').value.toLowerCase();
+            const fruitInfo = document.getElementById('fruit-info');
+            const fruitName = document.getElementById('fruit-name');
+
+            if (fruits[fruitInput]) {
+                const fruit = fruits[fruitInput];
+                fruitName.textContent = fruit.name;
+                fruitInfo.innerHTML = `
+                    <div class="fruit-image">
+                        <img src="${fruit.image}" alt="${fruit.name}">
+                    </div>
+                    <div class="info">
+                        <div><strong>Scientific Name:</strong> ${fruit.scientificName}</div>
+                        <div><strong>Origin:</strong> ${fruit.origin}</div>
+                        <div><strong>Season:</strong> ${fruit.season}</div>
+                        <div><strong>Taste:</strong> ${fruit.taste}</div>
+                        <div><strong>Nutrition:</strong> ${fruit.nutrition}</div>
+                        <div><strong>Uses:</strong> ${fruit.uses}</div>
+                    </div>
+                `;
+            } else {
+                fruitName.textContent = "Fruit not found!";
+                fruitInfo.innerHTML = "";
+            }
+        }
+    </script>
+</body>
+</html>
